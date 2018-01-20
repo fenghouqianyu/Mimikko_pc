@@ -59,3 +59,11 @@ app.on('activate', () => {
 
 // 在这文件，你可以续写应用剩下主进程代码。
 // 也可以拆分成几个文件，然后用 require 导入。
+
+ipcMain.on('quite', (event, arg) => {
+  win.destroy();
+  app.quit();
+})
+ipcMain.on('hide', (event, arg) => {
+  win.hide();
+})

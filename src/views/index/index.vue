@@ -6,7 +6,7 @@
 <template>
   <div class="fixed_container">
     <div class="header">
-      <span class="r fa fa-close"></span>
+      <span class="r fa fa-close" @click="quite"></span>
       <span class="l fa fa-minus"></span> Mimikko 桌宠
     </div>
     <div class="main">
@@ -20,7 +20,7 @@
           <input type="text">
         </dt>
         <dd>
-          <button>发送</button>
+          <button :disabled="button" @click="btn">发送</button>
         </dd>
       </dl>
     </div>
@@ -30,9 +30,18 @@
 <script>
   export default {
     data () {
-      return {}
+      return {
+        button: false
+      }
     },
-    methods: {},
+    methods: {
+      btn () {
+        console.log(1)
+      },
+      quite () {
+        window.appQuite()
+      }
+    },
     // 加载数据
     mounted () {
       var _this_ = this
@@ -42,6 +51,7 @@
         '16-32': '已经16点32了哦'
       }
       console.log(_this_)
+
       function getBody () {
         var now = new Date()
         var nowTime = '' + now.getHours() + '-' + now.getMinutes()
@@ -50,6 +60,7 @@
           window.popNotice('title', dataObj[nowTime])
         }
       }
+
       getBody()
       setInterval(function () {
         getBody()

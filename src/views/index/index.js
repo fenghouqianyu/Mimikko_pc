@@ -1,12 +1,22 @@
 import Vue from 'vue'
 import app from './index.vue'
 
-window.popNotice = function (title, body) {
-  var notification = new Notification(title + ':', {
-    body: body
-  })
-  notification.onclick = function () {
-    notification.close()
+console.log(process.env.NODE_ENV)
+if (process.env.NODE_ENV === 'production') {
+  const ipcRenderer = require('electron').ipcRenderer
+  window.appQuite = function () {
+    ipcRenderer.send('quite')
+  }
+  window.appHide = function () {
+    ipcRenderer.send('hide')
+  }
+} else {
+  window.appQuite = function () {
+    console.log('播放器即将关闭')
+    window.close()
+  }
+  window.appHide = function () {
+    console.log('播放器最小化')
   }
 }
 
